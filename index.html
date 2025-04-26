@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/styles/main.css"/>
+  <title>Sentiment Analyzer - Оплата</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Купить доступ за 100 ₽</h1>
+    <button id="payBtn">Оплатить 100 ₽</button>
+  </div>
+
+  <script>
+    document.getElementById('payBtn').onclick = async () => {
+      const orderId = 'order_' + Date.now();
+      const res = await fetch(`/api/createPayment?orderId=${orderId}`);
+      const { url } = await res.json();
+      window.location.href = url;
+    };
+  </script>
+</body>
+</html>

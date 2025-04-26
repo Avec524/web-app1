@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/styles/main.css"/>
+  <title>Спасибо за оплату</title>
+</head>
+<body>
+  <div id="message" class="container">Проверка доступа...</div>
+
+  <script>
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      if (!token) {
+        document.getElementById('message').innerText = 'Ошибка: токен не найден';
+        return;
+      }
+      const res = await fetch(`/api/validateToken?token=${token}`);
+      const data = await res.json();
+      if (data.valid) {
+        localStorage.setItem('access_token', token);
+        window.location.href = '/app.html';
+      } else {
+        document.getElementById('message').innerText = 'Доступ не подтверждён';
+      }
+    })();
+  </script>
+</body>
+</html>

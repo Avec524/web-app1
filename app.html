@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/styles/main.css"/>
+  <title>Sentiment Analyzer</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Анализ тональности текста</h1>
+    <textarea id="inputText" rows="6" placeholder="Введите текст..."></textarea>
+    <button id="analyzeBtn">Анализировать</button>
+    <div id="result"></div>
+  </div>
+
+  <script type="module">
+    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.5.0';
+
+    // Проверка токена
+    (async () => {
+      const token = localStorage.getItem('access_token');
+      if (!token) return window.location.href = '/';
+      const res = await fetch(`/api/validateToken?token=${token}`);
+      const { valid } = await res.json();
+      if (!valid) window.location.href = '/';
+    })();
+
+    let classifier;
+    document.getElementById('analyzeBtn').addEventListener('click', async () => {
+      const text = document.getElementById('inputText').value;
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = 'Анализируем...';
+
+      if (!classifier) {
+        classifier = await pipeline('sentiment-analysis');
+      }
+      const [result] = await classifier(text);
+      resultDiv.textContent = `Результат: ${result.label} (${(result.score*100).toFixed(2)}%)`;
+    });
+  </script>
+</body>
+</html>
