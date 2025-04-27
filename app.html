@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="/styles/main.css"/>
-  <title>Sentiment Analyzer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Копирайтинг с ИИ - WepAppEmotion</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Анализ тональности текста</h1>
-    <textarea id="inputText" rows="6" placeholder="Введите текст..."></textarea>
-    <button id="analyzeBtn">Анализировать</button>
-    <div id="result"></div>
-  </div>
+  <header class="header">
+    <div class="container flex-row">
+      <h1 class="logo">WepAppEmotion</h1>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+      </nav>
+    </div>
+  </header>
 
-  <script type="module">
-    import { pipeline } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.5.0';
+  <section class="app">
+    <div class="container">
+      <h2>Генерация текста с нейросетью</h2>
+      <p>Введи запрос, и наша нейросеть сгенерирует для тебя текст!</p>
+      
+      <form action="generate-text.php" method="POST">
+        <textarea name="query" rows="5" placeholder="Введите запрос для генерации текста..." required></textarea>
+        <button type="submit" class="btn">Генерировать текст</button>
+      </form>
+    </div>
+  </section>
 
-    // Проверка токена
-    (async () => {
-      const token = localStorage.getItem('access_token');
-      if (!token) return window.location.href = '/';
-      const res = await fetch(`/api/validateToken?token=${token}`);
-      const { valid } = await res.json();
-      if (!valid) window.location.href = '/';
-    })();
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 WepAppEmotion. Все права защищены.</p>
+    </div>
+  </footer>
 
-    let classifier;
-    document.getElementById('analyzeBtn').addEventListener('click', async () => {
-      const text = document.getElementById('inputText').value;
-      const resultDiv = document.getElementById('result');
-      resultDiv.textContent = 'Анализируем...';
-
-      if (!classifier) {
-        classifier = await pipeline('sentiment-analysis');
-      }
-      const [result] = await classifier(text);
-      resultDiv.textContent = `Результат: ${result.label} (${(result.score*100).toFixed(2)}%)`;
-    });
-  </script>
 </body>
 </html>
