@@ -4,59 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Оплата доступа — WebAppEmotion</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      min-height: 100vh;
-      margin: 0;
-      background: #f0f2f5;
-    }
-    .payment-box {
-      background: #fff;
-      padding: 20px;
-      border: 2px solid #000;
-      border-radius: 10px;
-      text-align: center;
-      max-width: 400px;
-      width: 100%;
-    }
-    .payment-box h1 {
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-    .payment-box button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .payment-box button:hover {
-      background: #45a049;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="payment-box">
-    <h1>Оплата доступа — 100 ₽</h1>
-    <form action="https://yoomoney.ru/quickpay/confirm.xml" method="POST">
-      <!-- Обязательные поля -->
-      <input type="hidden" name="receiver" value="4100119007499838">
-      <input type="hidden" name="quickpay-form" value="shop">
-      <input type="hidden" name="sum" value="100.00">
-      <input type="hidden" name="paymentType" value="PC">
-      <!-- Перенаправление после оплаты -->
-      <input type="hidden" name="successURL" value="https://web-app12.vercel.app/app.html">
-      <button type="submit">Перейти к оплате</button>
-    </form>
+  <div class="container">
+    <h1>Оплатите доступ за 100 ₽</h1>
+    <!-- Новый виджет оплаты -->
+    <iframe
+      src="https://yoomoney.ru/quickpay/fundraise/widget?billNumber=19SJDBQ5L5C.250427&"
+      width="500"
+      height="480"
+      frameborder="0"
+      allowtransparency="true"
+      scrolling="no">
+    </iframe>
+    <p>После оплаты нажмите кнопку «Вернуться на сайт» в интерфейсе ЮMoney, чтобы попасть к приложению.</p>
   </div>
 
 </body>
