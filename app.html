@@ -3,38 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WebAppEmotion — Генератор текста</title>
+  <title>WebAppEmotion — Ваш копирайтер</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div class="container">
-    <h1>Генератор текстов</h1>
-    <textarea id="userInput" placeholder="Введите ваш запрос..." class="input-box"></textarea>
-    <button onclick="generateContent()">Сгенерировать</button>
-    <div id="outputBox" class="output-box"></div>
+    <h1>Введите тему для генерации</h1>
+    <textarea id="prompt" placeholder="Опишите задачу..." rows="5"></textarea>
+    <button onclick="generateText()">Сгенерировать</button>
+    <div id="result" class="output-box"></div>
   </div>
 
   <script>
-    function generateContent() {
-      const userInput = document.getElementById('userInput').value.trim();
-      const outputBox = document.getElementById('outputBox');
-
-      if (userInput === "") {
-        alert("Пожалуйста, введите запрос!");
-        return;
-      }
-
-      outputBox.innerHTML = "Генерация текста...";
-
-      // Здесь будет подключение к нейросети Mistrai AI
-      setTimeout(() => {
-        outputBox.innerHTML = "Ваш сгенерированный текст на основе запроса: " + userInput;
-      }, 2000);
+    async function generateText() {
+      const text = document.getElementById('prompt').value.trim();
+      if (!text) return alert('Введите запрос');
+      document.getElementById('result').innerText = 'Генерация...';
+      // Реальный запрос к вашему серверу или напрямую к API Mistrai AI
+      const res = await fetch('/api/generate-text', {
+        method: 'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({prompt:text})
+      });
+      const data = await res.json();
+      document.getElementById('result').innerText = data.text;
     }
   </script>
-
 </body>
 </html>
-
 
