@@ -3,130 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Оплата доступа</title>
-
-  <style>
-    /* Базовые стили страницы */
-    body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      background: #f0f2f5;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .btn-pay {
-      background-color: #ffd600;
-      color: #000;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: background 0.2s;
-    }
-    .btn-pay:hover {
-      background-color: #ffeb3b;
-    }
-
-    /* Оверлей */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    /* Модальное окно */
-    .modal {
-      background: #fff;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 540px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-      position: relative;
-      overflow: hidden;
-    }
-    .modal-header {
-      padding: 15px;
-      background: #ffd600;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-header h2 {
-      margin: 0;
-      font-size: 20px;
-      color: #000;
-    }
-    .modal-close {
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      line-height: 1;
-      cursor: pointer;
-    }
-    .modal-body {
-      padding: 0;
-      background: #fafafa;
-    }
-
-    /* Адаптивное iframe */
-    .modal-body iframe {
-      width: 100%;
-      height: 480px;
-      border: none;
-    }
-  </style>
+  <title>Копирайтинг с ИИ</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <button class="btn-pay" id="openModal">Оплатить доступ 100 ₽</button>
+  <header class="header">
+    <div class="container flex-row">
+      <h1 class="logo">WepAppEmotion</h1>
+      <nav class="nav">
+        <a href="#features">Функции</a>
+        <a href="#how">Как это работает</a>
+        <a href="#plans">Тарифы</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Модальное окно -->
+  <section class="hero">
+    <div class="container flex-row">
+      <div class="hero-text">
+        <h2>Доступ к копирайтингу с нейросетью за 100 ₽</h2>
+        <p>Генерируйте статьи, описания товаров и посты в соцсетях без ограничений!</p>
+        <button class="btn" id="openModal">Купить доступ</button>
+      </div>
+      <div class="hero-img">
+        <!-- Здесь можно вставить иллюстрацию -->
+        <img src="https://via.placeholder.com/300x200" alt="ИИ копирайтинг"/>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container flex-row">
+      <div class="feature">
+        <h3>Генерация текстов</h3>
+        <p>Статьи, посты, описания товаров — все виды контента.</p>
+      </div>
+      <div class="feature">
+        <h3>Неограниченный доступ</h3>
+        <p>Один раз оплатили — пользуетесь без ограничений.</p>
+      </div>
+      <div class="feature">
+        <h3>Сохранение истории</h3>
+        <p>Все запросы и ответы сохраняются в вашем профиле.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="how">
+    <div class="container">
+      <h2>Как это работает</h2>
+      <div class="steps flex-row">
+        <div class="step">
+          <strong>1.</strong> Оплата через ЮMoney  
+        </div>
+        <div class="step">
+          <strong>2.</strong> Автоматический Webhook → токен  
+        </div>
+        <div class="step">
+          <strong>3.</strong> Ввод запроса и генерация Mistrai AI  
+        </div>
+        <div class="step">
+          <strong>4.</strong> Скачивание и сохранение текста  
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="plans" class="plans">
+    <div class="container flex-row">
+      <div class="plan">
+        <h3>Базовый</h3>
+        <p class="price">100 ₽</p>
+        <p>Неограниченная генерация текстов</p>
+        <button class="btn" onclick="openModal('access-100rub')">Купить</button>
+      </div>
+      <div class="plan">
+        <h3>Премиум</h3>
+        <p class="price">300 ₽</p>
+        <p>+50 скачиваний в DOCX</p>
+        <button class="btn" onclick="openModal('access-300rub')">Купить</button>
+      </div>
+      <div class="plan">
+        <h3>Корпоратив</h3>
+        <p class="price">По запросу</p>
+        <p>API-доступ, SLA 24/7</p>
+        <a href="/contact.html" class="btn">Связаться</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Модальное окно оплаты -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
       <div class="modal-header">
-        <h2>Оплата через ЮMoney</h2>
+        <h4>Оплата через ЮMoney</h4>
         <button class="modal-close" id="closeModal">&times;</button>
       </div>
       <div class="modal-body">
-        <!-- Ваш виджет ЮMoney -->
-        <iframe src="https://yoomoney.ru/quickpay/fundraise/widget?billNumber=19SHFEUJDIA.250427&"
-                allowtransparency="true" scrolling="no"></iframe>
+        <form id="payForm" action="https://yoomoney.ru/quickpay/confirm.xml" method="POST" target="ym-payment-iframe">
+          <input type="hidden" name="receiver" value="4100119007499838" />
+          <input type="hidden" name="quickpay-form" value="shop" />
+          <input type="hidden" name="sum" id="sumField" value="" />
+          <input type="hidden" name="label" id="labelField" value="" />
+          <input type="hidden" name="paymentType" value="PC" />
+          <input type="hidden" name="successURL" value="https://wepappemotion.com/success.html" />
+          <button class="btn" type="submit">Перейти к оплате</button>
+        </form>
+        <iframe name="ym-payment-iframe" class="payment-iframe" scrolling="no"></iframe>
       </div>
     </div>
   </div>
 
   <script>
-    const openBtn = document.getElementById('openModal');
-    const closeBtn = document.getElementById('closeModal');
     const overlay = document.getElementById('modalOverlay');
-
-    openBtn.addEventListener('click', () => {
+    function openModal(label) {
+      document.getElementById('labelField').value = label;
+      document.getElementById('sumField').value = label === 'access-300rub' ? '300.00' : '100.00';
       overlay.style.display = 'flex';
-    });
-    closeBtn.addEventListener('click', () => {
-      overlay.style.display = 'none';
-    });
-    // Закрытие кликом по фону
-    overlay.addEventListener('click', e => {
-      if (e.target === overlay) overlay.style.display = 'none';
-    });
-    // Закрытие по ESC
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') overlay.style.display = 'none';
-    });
+    }
+    function closeModal() { overlay.style.display = 'none'; }
+    document.getElementById('closeModal').onclick = closeModal;
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.getElementById('openModal').onclick = () => openModal('access-100rub');
   </script>
 
 </body>
 </html>
+
+
 
