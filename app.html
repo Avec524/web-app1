@@ -3,40 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Генератор текстов — WebAppEmotion</title>
+  <title>Генерация текста — WebAppEmotion</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .app-container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 2px solid #000;
+      border-radius: 12px;
+      background: #f9f9f9;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #000;
+      border-radius: 6px;
+      resize: vertical;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #2D89EF;
+      color: #fff;
+      padding: 12px 25px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover {
+      background-color: #1B5EAB;
+    }
+    .response-box {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #000;
+      background-color: #ffffff;
+      border-radius: 6px;
+      min-height: 100px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
 
 <header>
   <div class="container">
-    <h1>Генератор текстов на базе Mistrai AI</h1>
-    <p>Введите задание, и нейросеть мгновенно создаст уникальный текст.</p>
+    <h1>Копирайтинг с помощью нейросети</h1>
+    <p>Введите тему или запрос, чтобы получить уникальный текст.</p>
   </div>
 </header>
 
 <main>
-  <div class="container app-box">
-    <textarea id="prompt" placeholder="Введите тему или задание..." rows="5"></textarea>
-    <button onclick="generateText()">Сгенерировать текст</button>
-    <div id="result" class="result-box"></div>
+  <div class="container">
+    <div class="app-container">
+      <textarea id="userInput" rows="5" placeholder="Введите ваш запрос..."></textarea>
+      <button class="btn" onclick="generateText()">Сгенерировать текст</button>
+      
+      <div class="response-box" id="output">
+        Здесь появится сгенерированный текст.
+      </div>
+    </div>
   </div>
 </main>
 
 <script>
 async function generateText() {
-  const prompt = document.getElementById('prompt').value;
-  const resultDiv = document.getElementById('result');
+  const input = document.getElementById('userInput').value.trim();
+  const output = document.getElementById('output');
 
-  if (!prompt.trim()) {
-    resultDiv.innerHTML = '<p style="color: red;">Пожалуйста, введите задание.</p>';
+  if (!input) {
+    output.textContent = 'Пожалуйста, введите запрос!';
     return;
   }
 
-  resultDiv.innerHTML = '<p>Генерация текста...</p>';
+  output.textContent = 'Генерация текста... Пожалуйста, подождите.';
 
   try {
-    const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+    const response = await fetch('https://api.mistralai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer YOUR_MISTRAI_API_KEY',
@@ -44,16 +92,25 @@ async function generateText() {
       },
       body: JSON.stringify({
         model: "mistral-tiny",
-        messages: [{ role: "user", content: prompt }]
+        messages: [
+          {
+            role: "user",
+            content: input
+          }
+        ]
       })
     });
 
     const data = await response.json();
-    const generatedText = data.choices[0].message.content;
-    resultDiv.innerHTML = `<p>${generatedText}</p>`;
+    if (data.choices && data.choices[0] && data.choices[0].message) {
+      output.textContent = data.choices[0].message.content.trim();
+    } else {
+      output.textContent = 'Ошибка генерации текста. Попробуйте снова.';
+    }
+
   } catch (error) {
-    resultDiv.innerHTML = '<p style="color: red;">Ошибка генерации. Попробуйте позже.</p>';
     console.error(error);
+    output.textContent = 'Произошла ошибка при обращении к серверу.';
   }
 }
 </script>
