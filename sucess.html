@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="/styles/main.css"/>
-  <title>Спасибо за оплату</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Успешная оплата - WepAppEmotion</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="message" class="container">Проверка доступа...</div>
+  <header class="header">
+    <div class="container flex-row">
+      <h1 class="logo">WepAppEmotion</h1>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+      </nav>
+    </div>
+  </header>
 
-  <script>
-    (async () => {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get('token');
-      if (!token) {
-        document.getElementById('message').innerText = 'Ошибка: токен не найден';
-        return;
-      }
-      const res = await fetch(`/api/validateToken?token=${token}`);
-      const data = await res.json();
-      if (data.valid) {
-        localStorage.setItem('access_token', token);
-        window.location.href = '/app.html';
-      } else {
-        document.getElementById('message').innerText = 'Доступ не подтверждён';
-      }
-    })();
-  </script>
+  <section class="success">
+    <div class="container flex-row">
+      <div class="success-message">
+        <h2>Поздравляем! Оплата прошла успешно.</h2>
+        <p>Вы получили доступ к нашему копирайтинг-приложению. Теперь вы можете использовать нашу нейросеть для генерации текстов.</p>
+        <div class="button-container">
+          <a href="app.html" class="btn">Перейти к приложению</a>
+        </div>
+      </div>
+      <div class="success-image">
+        <img src="https://via.placeholder.com/300x200" alt="Успешная оплата" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 WepAppEmotion. Все права защищены.</p>
+    </div>
+  </footer>
+
 </body>
 </html>
