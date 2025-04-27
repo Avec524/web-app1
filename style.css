@@ -1,92 +1,89 @@
-/* Базовые стили */
+/* Общие стили */
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f9f9f9;
-  color: #333;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
-.container {
-  width: 90%;
-  max-width: 960px;
-  margin: auto;
-  padding: 20px;
+/* Стиль заголовков */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-header {
-  background: linear-gradient(135deg, #4f46e5, #6d28d9);
-  color: white;
-  padding: 40px 20px;
-  text-align: center;
-  border-bottom: 4px solid #333;
+/* Кнопка оплаты */
+.pay-button {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
 }
 
-header h1 {
-  margin-bottom: 10px;
+.pay-button:hover {
+    background-color: #45a049;
 }
 
-header p {
-  font-size: 1.2em;
+/* Секция оплаты */
+.payment-section {
+    text-align: center;
+    margin-top: 50px;
 }
 
 /* Секция приложения */
-.app-box {
-  margin-top: 40px;
-  background: white;
-  padding: 30px;
-  border: 2px solid #000;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+.app-section {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 40px;
+    text-align: center;
 }
 
+/* Поле ввода */
 textarea {
-  width: 100%;
-  padding: 15px;
-  font-size: 1em;
-  border: 2px solid #000;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  resize: vertical;
+    width: 90%;
+    height: 150px;
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+    border: 2px solid #000;
+    border-radius: 10px;
 }
 
+/* Кнопка генерации */
 button {
-  display: inline-block;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  font-size: 1em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-  background: #4338ca;
+    background-color: #0056b3;
 }
 
+/* Результат */
 .result-box {
-  margin-top: 30px;
-  padding: 20px;
-  background: #f0f0f0;
-  border: 2px solid #000;
-  border-radius: 8px;
-  min-height: 150px;
+    background-color: white;
+    border: 2px solid #000;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    text-align: left;
+    word-wrap: break-word;
 }
 
-/* Адаптивность */
-@media (max-width: 600px) {
-  header {
-    padding: 30px 10px;
-  }
-
-  textarea {
-    height: 150px;
-  }
-
-  button {
-    width: 100%;
-    margin-top: 10px;
-  }
-}
