@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Копирайтинг через Mistrai AI</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebAppEmotion — Генератор текста</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container app-container">
-        <h1>Ваш генератор текстов</h1>
-        <textarea id="userInput" placeholder="Введите тему для текста..."></textarea>
-        <button onclick="generateText()">Сгенерировать текст</button>
-        <div id="output"></div>
-    </div>
 
-    <script>
-        async function generateText() {
-            const prompt = document.getElementById('userInput').value;
-            if (!prompt.trim()) {
-                alert('Введите тему!');
-                return;
-            }
+  <div class="container">
+    <h1>Генератор текстов</h1>
+    <textarea id="userInput" placeholder="Введите ваш запрос..." class="input-box"></textarea>
+    <button onclick="generateContent()">Сгенерировать</button>
+    <div id="outputBox" class="output-box"></div>
+  </div>
 
-            const response = await fetch('https://api.mistrai.com/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Здесь должен быть ваш API-ключ если нужен
-                },
-                body: JSON.stringify({
-                    prompt: prompt,
-                    max_tokens: 150
-                })
-            });
+  <script>
+    function generateContent() {
+      const userInput = document.getElementById('userInput').value.trim();
+      const outputBox = document.getElementById('outputBox');
 
-            const data = await response.json();
-            document.getElementById('output').innerText = data.text || 'Ошибка генерации текста.';
-        }
-    </script>
+      if (userInput === "") {
+        alert("Пожалуйста, введите запрос!");
+        return;
+      }
+
+      outputBox.innerHTML = "Генерация текста...";
+
+      // Здесь будет подключение к нейросети Mistrai AI
+      setTimeout(() => {
+        outputBox.innerHTML = "Ваш сгенерированный текст на основе запроса: " + userInput;
+      }, 2000);
+    }
+  </script>
+
 </body>
 </html>
 
