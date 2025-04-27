@@ -3,39 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ваш Копирайтинг</title>
+  <title>Генератор текстов — WebAppEmotion</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="container">
-    <h1>Генератор текстов на базе нейросети</h1>
+    <h1>Генератор текстов на базе Mistrai AI</h1>
+    <p>Введите задание, и нейросеть мгновенно создаст уникальный текст.</p>
   </div>
 </header>
 
 <main>
-  <div class="container">
-    <form id="form">
-      <textarea id="prompt" placeholder="Введите тему текста..." required></textarea>
-      <button type="submit" class="btn">Создать текст</button>
-    </form>
-    <div id="result"></div>
+  <div class="container app-box">
+    <textarea id="prompt" placeholder="Введите тему или задание..." rows="5"></textarea>
+    <button onclick="generateText()">Сгенерировать текст</button>
+    <div id="result" class="result-box"></div>
   </div>
 </main>
 
 <script>
-document.getElementById('form').addEventListener('submit', async (e) => {
-  e.preventDefault();
+async function generateText() {
   const prompt = document.getElementById('prompt').value;
-  const response = await fetch('https://mistrai.ai/api/generate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: prompt })
-  });
-  const data = await response.json();
-  document.getElementById('result').innerText = data.text || 'Ошибка генерации. Попробуйте снова.';
-});
+  const resultDiv = document.getElementById('result');
+
+  if (!prompt.trim()) {
+    resultDiv.innerHTML = '<p style="color: red;">Пожалуйста, введите задание.</p>';
+    return;
+  }
+
+  resultDiv.innerHTML = '<p>Генерация текста...</p>';
+
+  try {
+    const response = await fetch('https://api.mistral.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer YOUR_MISTRAI_API_KEY',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: "mistral-tiny",
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const generatedText = data.choices[0].message.content;
+    resultDiv.innerHTML = `<p>${generatedText}</p>`;
+  } catch (error) {
+    resultDiv.innerHTML = '<p style="color: red;">Ошибка генерации. Попробуйте позже.</p>';
+    console.error(error);
+  }
+}
 </script>
 
 </body>
