@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата доступа</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Оплата доступа</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Оплата 100 рублей</h1>
-        <p>После оплаты вас автоматически перенаправит в приложение.</p>
-        <iframe 
-            src="https://yoomoney.ru/quickpay/fundraise/widget?billNumber=19SJDBQ5L5C.250427&successURL=https%3A%2F%2FВАШ_САЙТ%2Fapp.html" 
-            width="500" 
-            height="480" 
-            frameborder="0" 
-            allowtransparency="true" 
-            scrolling="no">
-        </iframe>
-    </div>
+
+  <div class="container">
+    <h1>Оплатите доступ</h1>
+    <iframe 
+      src="https://yoomoney.ru/quickpay/fundraise/widget?billNumber=19SJDBQ5L5C.250427&" 
+      width="500" 
+      height="480" 
+      frameborder="0" 
+      allowtransparency="true" 
+      scrolling="no">
+    </iframe>
+    <p>После оплаты вы будете автоматически перенаправлены в приложение.</p>
+  </div>
+
+  <script>
+    // Через 10 секунд происходит автоматическое перенаправление
+    setTimeout(function() {
+      window.location.href = "app.html";
+    }, 10000);
+  </script>
+
 </body>
 </html>
-
